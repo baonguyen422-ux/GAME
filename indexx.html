@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vòng Quay Tài Lộc - Xuân 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto Slab', serif; background: radial-gradient(circle, #b71c1c, #880e4f); margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; color: #fff; user-select: none; -webkit-user-select: none; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2); z-index: 1; }
+        .falling-flowers { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .flower { position: absolute; top: -50px; font-size: 24px; animation: fall linear infinite; opacity: 0.8; text-shadow: 0 0 5px #fff; }
+        @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+        .flower:nth-child(1) { left: 10%; animation-duration: 8s; font-size: 20px; } .flower:nth-child(2) { left: 20%; animation-duration: 12s; animation-delay: 2s; } .flower:nth-child(3) { left: 35%; animation-duration: 10s; animation-delay: 1s; font-size: 28px; } .flower:nth-child(4) { left: 50%; animation-duration: 15s; font-size: 18px; } .flower:nth-child(5) { left: 65%; animation-duration: 9s; animation-delay: 3s; } .flower:nth-child(6) { left: 80%; animation-duration: 11s; font-size: 25px; }
+        .main-wrapper { display: flex; flex-direction: column; align-items: center; z-index: 10; position: relative; transform: scale(0.95); }
+        .header-section { text-align: center; margin-bottom: 20px; }
+        .tet-title { font-size: 38px; margin: 0; color: #ffd700; text-shadow: 2px 2px 0 #b71c1c, 0 0 15px #ffea00; text-transform: uppercase; }
+        .sub-title { font-size: 16px; letter-spacing: 2px; color: #fff; margin-top: 5px; text-shadow: 1px 1px 2px #000; font-weight: bold; }
+        .wheel-box { position: relative; width: 320px; height: 320px; margin-bottom: 20px; }
+        .pointer-container { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); z-index: 50; display: flex; flex-direction: column; align-items: center; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5)); }
+        .gem-stone { width: 35px; height: 35px; background: radial-gradient(circle, #ff5252, #b71c1c); border: 3px solid #ffd700; border-radius: 50%; }
+        .gold-tip { width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 45px solid #ffd700; margin-top: -10px; }
+        .wheel-frame { width: 100%; height: 100%; border-radius: 50%; border: 12px solid #ffca28; box-shadow: 0 0 25px rgba(255, 202, 40, 0.4); position: relative; overflow: hidden; background: #fff; box-sizing: border-box; }
+        .wheel-spinner { width: 100%; height: 100%; border-radius: 50%; position: relative; transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1); }
+        .segment { position: absolute; top: 50%; left: 50%; width: 50%; height: 30px; transform-origin: 0% 50%; margin-top: -15px; display: flex; align-items: center; justify-content: flex-end; padding-right: 35px; box-sizing: border-box; font-size: 20px; font-weight: 900; z-index: 1; text-shadow: 1px 1px 0 rgba(0,0,0,0.2); }
+        .ak-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle, #fff9c4, #fbc02d); border: 4px solid #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 100; cursor: pointer; outline: none; transition: 0.2s; display: flex; justify-content: center; align-items: center; text-align: center; }
+        .btn-text { font-size: 22px; font-weight: 900; color: #c62828; line-height: 1.1; }
+        .ak-btn:active { transform: translate(-50%, -50%) scale(0.95); }
+        .modal-hidden { display: none; }
+        #result-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999; display: flex; justify-content: center; align-items: center; }
+        .modal-content { background: linear-gradient(135deg, #b71c1c, #880e4f); padding: 30px; border-radius: 20px; text-align: center; border: 4px solid #ffd700; width: 85%; max-width: 320px; box-shadow: 0 0 30px rgba(255, 215, 0, 0.5); animation: popUp 0.5s ease-out; }
+        @keyframes popUp { from {transform: scale(0);} to {transform: scale(1);} }
+        .congrats-text { color: #fff; font-size: 18px; margin-bottom: 10px; }
+        #result-prize { color: #ffd700; font-size: 50px; font-weight: bold; margin: 10px 0; text-shadow: 2px 2px 0 #000; }
+        .close-btn { background: #ffd700; color: #b71c1c; border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 0 #f57f17; }
+        .close-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #f57f17; }
+    </style>
+</head>
+<body>
+<div class="overlay"></div>
+<div class="falling-flowers"><div class="flower">🌼</div><div class="flower">🌸</div><div class="flower">🌼</div><div class="flower">🌸</div><div class="flower">🌼</div><div class="flower">🌸</div></div>
+<div class="main-wrapper">
+    <div class="header-section"><h1 class="tet-title">XUÂN BÍNH NGỌ 2026</h1><div class="sub-title">VÒNG QUAY TÀI LỘC - NPP AK</div></div>
+    <div class="wheel-box">
+        <div class="pointer-container"><div class="gem-stone"></div><div class="gold-tip"></div></div>
+        <div class="wheel-frame"><div class="wheel-spinner" id="wheel"></div><button id="spinBtn" class="ak-btn"><div class="btn-text">NPP<br>AK</div></button></div>
+    </div>
+</div>
+<div id="result-modal" class="modal-hidden"><div class="modal-content"><div class="congrats-text">CHÚC MỪNG BẠN TRÚNG</div><div id="result-prize">---</div><button id="closeBtn" class="close-btn">NHẬN THƯỞNG</button></div></div>
+<audio id="bg-music" loop><source src="https://www.myinstants.com/media/sounds/xo-so-kien-thiet-remix.mp3" type="audio/mpeg"></audio>
+<script>
+    // --- BẢN 50K ---
+    const prizes = ['10k', '20k', '50k', '100k', '200k', '10k', '20k', '50k', '100k', '200k'];
+    const colors = ['#d32f2f', '#ffca28', '#d32f2f', '#ffca28', '#d32f2f', '#ffca28', '#d32f2f', '#ffca28', '#d32f2f', '#ffca28'];
+    const TARGET_PRIZE = '50k'; // <<< KẾT QUẢ
+
+    const wheel = document.getElementById('wheel'); const spinBtn = document.getElementById('spinBtn'); const closeBtn = document.getElementById('closeBtn'); const resultModal = document.getElementById('result-modal'); const resultPrize = document.getElementById('result-prize'); const bgMusic = document.getElementById('bg-music');
+    const segmentAngle = 360 / prizes.length; let currentRotation = 0; let isSpinning = false;
+    let gradientParts = [];
+    prizes.forEach((prize, index) => {
+        const startAngle = index * segmentAngle; const endAngle = startAngle + segmentAngle;
+        gradientParts.push(`${colors[index]} ${startAngle}deg ${endAngle}deg`);
+        const segment = document.createElement('div'); segment.className = 'segment';
+        const centerAngle = startAngle + (segmentAngle / 2);
+        segment.style.transform = `rotate(${centerAngle - 90}deg)`;
+        segment.innerText = prize; segment.style.color = index % 2 === 0 ? '#fff' : '#d32f2f';
+        wheel.appendChild(segment);
+    });
+    wheel.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+    function startSpin() {
+        if (isSpinning) return; isSpinning = true;
+        bgMusic.currentTime = 0; bgMusic.volume = 1.0; bgMusic.play().catch(e => console.log("Cần tương tác"));
+        const targetIndex = prizes.indexOf(TARGET_PRIZE);
+        const targetAngle = (targetIndex * segmentAngle) + (segmentAngle / 2);
+        const offsetToTarget = 360 - targetAngle;
+        const nextCircle = Math.ceil(currentRotation / 360) * 360;
+        let targetRotation = nextCircle + (360 * 10) + offsetToTarget;
+        if (targetRotation <= currentRotation) targetRotation += 360;
+        currentRotation = targetRotation;
+        wheel.style.transform = `rotate(${currentRotation}deg)`;
+        setTimeout(() => { resultPrize.innerText = TARGET_PRIZE; resultModal.style.display = 'flex'; isSpinning = false; bgMusic.volume = 0.3; }, 5000);
+    }
+    function closePopup() { resultModal.style.display = 'none'; bgMusic.pause(); }
+    spinBtn.addEventListener('click', startSpin); closeBtn.addEventListener('click', closePopup);
+</script>
+</body>
+</html>
